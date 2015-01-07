@@ -4,5 +4,8 @@
 #
 class profile::base {
 
-  
+  package { "unzip":
+
+    ensure => "installed"
+  }  
 }

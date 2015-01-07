@@ -19,7 +19,6 @@ class fedoragsearch (
     $fedoragsearch_schema = "${fedora_home}/tomcat/webapps/fedoragsearch/WEB-INF/classes/fgsconfigFinal/index/FgsIndex/conf/schema-4.2.0-for-fgs-2.6.xml"
     $solr_schema = "${home}/WEB-INF/classes/fgsconfigFinal/index/FgsIndex/conf/schema-4.2.0-for-fgs-2.6.xml"
     
-
     exec { 'fedoragsearch_download':
 
       command => "/usr/bin/wget ${fedoragsearch::install_source} -O /tmp/fedoragsearch.zip",
@@ -37,21 +36,22 @@ class fedoragsearch (
       line => template('fedoragsearch/fedora-users.xml.erb')
     }
 
-  exec { 'fedoragsearch_insert_properties':
+    exec { 'fedoragsearch_insert_properties':
     
-    command => "/usr/bin/sed -i ${fedoragsearch_build} 's#property file=\"fgsconfig-basic.properties#property file=\"fgsconfig-basic-for-islandora.properties#'",
-    unless => "/usr/bin/grep -q 'for-islandora' ${fedoragsearch_build}"
-  }
+      command => "/usr/bin/sed -i ${fedoragsearch_build} 's#property file=\"fgsconfig-basic.properties#property file=\"fgsconfig-basic-for-islandora.properties#'",
+      unless => "/usr/bin/grep -q 'for-islandora' ${fedoragsearch_build}"
+    }
 
-  exec { 'fedoragsearch_ant_build':
+    exec { 'fedoragsearch_ant_build':
     
-    command => "/usr/bin/ant -f ${fedoragsearch_build}",
-    unless => "/usr/bin/stat ${fedoragsearch_schema}"
-  }
+      command => "/usr/bin/ant -f ${fedoragsearch_build}",
+      unless => "/usr/bin/stat ${fedoragsearch_schema}"
+    }
 
-  file { 'fedoragsearch_tomcat_create_context':
+    file { 'fedoragsearch_tomcat_create_context':
 
-    path => "$catalina_home/conf/Catalina/localhost/fedoragsearch.xml",
-    content => template('fedoragsearch/fedoragsearch.xml.erb')
+      path => "${catalina_home}/conf/Catalina/localhost/fedoragsearch.xml",
+      content => template('fedoragsearch/fedoragsearch.xml.erb')
+    }
+    
   }
-}

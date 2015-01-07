@@ -1,5 +1,7 @@
 forge "http://forge.puppetlabs.com"
 
 mod 'puppetlabs/firewall'
-mod 'example42/puppet-solr'
-mod 'puppetlabs/apache'
+mod 'stahnma/epel'
+mod 'puppetlabs/java'
+mod 'puppetlabs/tomcat'
+mod 'example42/solr'
