@@ -4,6 +4,5 @@
 #
 class profile::fedoragsearch {
 
-
-    
+  class { "::fedoragsearch": }
 }

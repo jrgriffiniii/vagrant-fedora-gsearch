@@ -8,5 +8,6 @@ class role::discovery {
   include profile::java
   include profile::tomcat
   include profile::solr
-  # include profile::fedoragsearch
+  include profile::fedora_commons
+  include profile::fedoragsearch
 }
