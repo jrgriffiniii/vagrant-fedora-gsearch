@@ -4,5 +4,7 @@
 #
 class profile::fedora_commons {
 
-  class { "::fedora_commons": }
+  class { "::fedora_commons":
+
+  }
 }
